@@ -1,0 +1,57 @@
+<style>
+  div.a {
+    text-align: center;
+  }
+  h5 {
+    font-size: 3rem;
+    font-style: italic;
+    padding-left: 60px;
+    margin: .1rem 0;
+    color: #265bce;
+}
+hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 5;
+  width:25%;
+  border-style: inset;
+  border-width: 1px;
+  color:blue
+}
+  </style>
+  <br><br> <br> 
+<div > 
+  <div class="a"><h5>{{title}}</h5></div>
+  <br><br>
+  
+<br> <br> <br> <br>
+</div>
+
+<div  >            
+<div class="row" >
+  <div class="col-md-3 clickable"[ngClass]="currentCategorie==c?'active':''" (click)="getScatByCat(c)" *ngFor="let c of sCategories._embedded.sCategories">
+    <div class="men-thumb-item text-center">
+      
+      <img [src]="this.catService.host+'/photoSCategory/'+c.id+'?ts='+getTS()" width="200" height="200" alt="">
+      <div class="men-cart-pro">
+        <div class="inner-men-cart-pro">
+          <a  class="link-product-add-cart">Quick View</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="item-info-product text-center border-top mt-4">
+      <h4 class="pt-1">
+        <a  class="clickable">{{c.name}}</a>
+      </h4>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+
+
+

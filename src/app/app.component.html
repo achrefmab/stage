@@ -1,0 +1,737 @@
+
+<style>
+  body {
+    font-family: 'Lato', sans-serif;
+  }
+  h4 {
+    font-size: 1rem;
+    font-style: italic;
+    padding-left: 60px;
+    margin: .1rem 0;
+    color: #047c44;
+}
+  .overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  
+  .overlay-content {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+  
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
+  }
+  </style>
+
+
+
+  <div >
+
+ <div class="w3-container">
+  <div class="row main-top-w3l py-2">
+    
+    <div class="col-lg-8 header-right mt-lg-0 mt-2">
+       <!--  header lists -->
+       <ul *ngIf="!this.authService.isAuthenticated()">
+        
+        <li class="text-center border-right text-white">
+          <a  (click)="onLogin()" class="text-white">
+            <i class="fas fa-sign-in-alt mr-2"></i> Connecter</a>
+        </li>
+        <li class="text-center text-white">
+          <a  data-toggle="modal" data-target="#exampleModal2" class="text-white">
+            <i class="fas fa-sign-out-alt mr-2"></i>Register </a>
+        </li>
+       </ul>
+     
+       <ul *ngIf="this.authService.isAuthenticated()">
+        
+        <li class="text-center border-right text-white">
+          <a  (click)="Logout()" class="text-white">
+            <i class="fas fa-sign-in-alt mr-2 clickable"></i> Déconnecter</a>
+        </li>
+        <li class="text-center text-white">
+          <a  data-toggle="modal" data-target="#exampleModal2" class="text-white">
+            <i class="fas fa-sign-out-alt mr-2 clickable"></i>Register </a>
+        </li>
+      </ul>
+      <!-- //header lists -->
+    </div>
+  </div>
+  
+   
+    <div class="header-bot">
+      <div class="container">
+        <div class="row header-bot_inner_wthreeinfo_header_mid">
+          <!-- logo -->
+          <div class="col-md-3 logo_agile">
+            <h1 class="text-center">
+              <a href="index.html" class="font-weight-bold font-italic">
+                <img src="assets/images/logo2.png" alt=" " class="img-fluid">Bon Coin
+              </a>
+            </h1>
+          </div>
+          <!-- //logo -->
+          <!-- header-bot -->
+          <div class="col-md-9 header mt-4 mb-md-0 mb-4">
+            <div class="row">
+              <!-- search -->
+              <div class="col-10 agileits_search">
+                <form class="form-inline" action="#" method="post">
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
+                  <button class="btn my-2 my-sm-0" type="submit">Search</button>
+                </form>
+              </div>
+              <!-- //search -->
+              
+              <!-- cart details -->
+              <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
+                <div class="wthreecartaits wthreecartaits2 cart cart box_1">
+                  <form action="#" method="post" class="last">
+                    <input type="hidden" name="cmd" value="_cart">
+                    <input type="hidden" name="display" value="1">
+                    <a routerLink="/caddy">
+                      <span class="badge">{{caddyService.currentCaddyName}} :
+                        {{caddyService.getSize()}}</span>
+                    </a>
+                    <button class="btn w3view-cart" type="submit" name="submit" value="">
+                      <i class="fas fa-cart-arrow-down" routerLink="/caddy"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <!-- //cart details -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="navbar-inner">
+      <div class="container">
+        <div class="d-flex justify-content-center">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="agileits-navi_search">
+            
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <ul class="navbar-nav ml-auto text-center mr-xl-5">
+              <li>
+
+                <div id="myNav" class="overlay">
+                  <a href="javascript:void(0)" class="closebtn" (click)="onClick1()">&times;</a>
+                  <div class="overlay-content">
+                    <div class="agile_inner_drop_nav_info p-4">
+                      <div class="row">
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Terrasse & Jardin</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Le Jardin</h4>
+                            <li>
+                              <a (click)="onClick1()" [routerLink]="['/sscatego/1/Tondeuse, tronçonneuse, taille-haie...']">Tondeuse,tronçonneuse...</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a (click)="onClick1()" [routerLink]="['/sscatego/2']">Nettoyeur haute pression,détergent et accessoire</a>
+                            </li>
+                            <li>
+                              <a (click)="onClick1()" [routerLink]="['/sscatego/3']">Gazon, terreau et serre</a>
+                            </li>
+                            <li>
+                              <a (click)="onClick1()" [routerLink]="['/sscatego/4']">Arrosage, pompe et récupérateur d'eau depluie</a>
+                            </li>
+                            <h4 class="mb-3">Profiter du jardin</h4>
+                            <li>
+                              <a href="product.html">Salon de Jardin, table et chaise</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Parasol, tonnelle et voile</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Piscine et spa</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Barbecue,plancha et cuisine d'exterieur
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <br>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Outillage</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Equipement</h4>
+                            <li>
+                              <a href="product.html">Outillage éléctroportatif</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Outillage à main</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Outillage spécialisé</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Protection du bricoleur</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Equipement du chantier</a>
+                            </li>
+                            <h4 class="mb-3">Atelier et Machine de chantier</h4>
+                            <li>
+                              <a href="product.html">Machine d'atelier</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Matériel et aménagement de l'atelier</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Salle de bains</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Meuble de salle de bains</h4>
+                            <li>
+                              <a href="javascript:void(0)">Meuble de salle de bains et vasque</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Miroir et spot de salle de bains</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Robinet de salle de bains</a>
+                            </li>
+                            <h4 class="mb-3">Douche et Baignoire</h4>
+                            <li>
+                              <a href="product.html">Douche</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Accessoires de douche</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Baignoire</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Accessoires pour baignoire</a>
+                            </li>
+                            <h4  text-align="center">WC         </h4>
+                            <li>
+                              <a href="product.html">WC</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Abattant WC</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Cuisine</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Cuisine</h4>
+                            <li>
+                              <a href="javascript:void(0)">Cuisine compléte</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Meuble de cuisine</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Plan de travail et crédence</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Evier et robinet de cuisine</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Electroménager</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Poubelle, tabouret et accessoires de cuisine</a>
+                            </li>
+                            <h4 class="mb-3">Ma cuisine du sol au plafond</h4>
+                            <li>
+                              <a href="product.html">Eclairage cuisine et dressing</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Peinture murale cuisine</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Meubles Français de cuisine</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Rangement et dressing </h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Rangement Intérieur</h4>
+                            <li>
+                              <a href="javascript:void(0)">Aménagement placard</a>
+                        
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Porte de placard et de séparation</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Meuble</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Accessoires de rangement</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Meubles Français de Rangement</a>
+                            </li>
+                            <h4 class="mb-3">Rangement utilitaire</h4>
+                            <li>
+                              <a href="product.html">Etagére et Rangement</a>
+                            </li>
+                      
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Menuiserie</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Menuiserie Extérieure</h4>
+                            <li>
+                              <a href="javascript:void(0)">Fenetre et porte-fenetre</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Baie vitrée</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Store extérieur</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Porte d'entrée</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Porte de garage</a>
+                            </li>
+                            <li>
+                              <a href="product.html">All Certified Refurbished</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Volet</a>
+                            </li>
+                            <h4 class="mb-3">Menuiserie Intérieure</h4>
+                            <li>
+                              <a href="product.html">Porte coulissante,porte intérieure et escalier</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Panneau bois, tablette et étagère</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Verre et verre synthétique</a>
+                            </li>
+                            
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Matériaux de construction</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Gros oeuvre & Maçonnerie</h4>
+                            <li>
+                              <a href="javascript:void(0)">Béton, ciment, mortier et poudre</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Sable, gravier et sel de déneigement</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Parpaing, fer à béton et éléments de construction</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Echelle, échafaudage, brouette et lève-plaque</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Power Banks</a>
+                            </li>
+                            <h4 class="mb-3">Isolation & Cloison</h4>
+                            <li>
+                              <a href="product.html">Isolation</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Cloison et plafond</a>
+                            </li>
+                            <h4 class="mb-3">Toiture & Façade</h4>
+                            
+                            <li>
+                              <a href="product.html">Toiture, charpente et bardage</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Façade et rénovation de façade</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Carrelage, parquet & sol souple</h5>
+                          <ul class="multi-column-dropdown">
+                            <li>
+                              <a href="javascript:void(0)">Carrelage sol et mur</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Plaquette de parement et brique de verre</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Terasse et sol extérieur</a>
+                            </li>
+                            <h4 class="mb-3">Parquet</h4>
+                            
+                            <li>
+                              <a href="product.html">Parquet, stratifié et plancher</a>
+                            </li>
+                            <h4 class="mb-3">Sol souple</h4>
+                            
+                            <li>
+                              <a href="product.html">Lame, dalle et sol PVC</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Moquette,jonc de mer et sisal</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Tapis et paillasson</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Décoration & Eclairage </h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Eclairage</h4>
+                            
+                            <li>
+                              <a href="javascript:void(0)">Luminaire intérieur</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Eclairage extérieur</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Ampoule et LED</a>
+                            </li>
+                            <h4 class="mb-3">Décoration des murs et plafonds</h4>
+                            
+                            <li>
+                              <a href="product.html">Papier peint,frise et fibre de verre</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Dalle, rosace et moulure</a>
+                            </li>
+                            <h4 class="mb-3">Décoration de la fenetre</h4>
+                            
+                            <li>
+                              <a href="product.html">Store, panneau japonais et store californien</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Rideau, voilage et vitrage</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Triangle à rideaux, barre, rail et cable</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Peinture et Droguerie</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Peinture & Produits bois</h4>
+                            
+                            <li>
+                              <a href="javascript:void(0)">Peinture intérieure</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Peinture, lasure et traitement extérieur</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Produits pour parquet</a>
+                            </li>
+                            <h4 class="mb-3">Préparation des murs et Outillage</h4>
+                            <li>
+                              <a href="product.html">Rouleau, pinceau et bâche de protection</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Sous-couche et enduit</a>
+                            </li>
+                            <h4 class="mb-3">Droguerie</h4>
+                            
+                            <li>
+                              <a href="product.html">Produit d'entretien, insecticide et accesoires de ménage</a>
+                            </li> 
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Electricité & Domotique</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Electricité</h4>
+                            
+                            <li>
+                              <a href="javascript:void(0)">Interrupteur et prise</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Rallonge, multiprise et enrouleur</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Tableau électrique</a>
+                            </li>
+                            <h4 class="mb-3">Sécurité de la maison</h4>
+                            
+                            <li>
+                              <a href="product.html">Alarme, camera de surveillance et détecteur de fumée</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Motorisation portail et volet</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Domotique et objets connectés</a>
+                            </li>
+                            
+                          </ul>
+                        </div>
+                        <div class="col-sm-4 multi-gd-img">
+                          <h5 class="mb-3">Chauffage et Plomberie</h5>
+                          <ul class="multi-column-dropdown">
+                            <h4 class="mb-3">Chauffer</h4>
+                            
+                            <li>
+                              <a href="javascript:void(0)">Radiateur, sèche-serviettes</a>
+                              
+                            </li>
+                            
+                            <li>
+                              <a href="product.html">Poêle à bois, poêle à granulés et cheminée</a>
+                            </li>
+                            <li>
+                              <a href="product.html">Chauffe-eau et ballon d'eau chaude</a>
+                            </li>
+                            <h4 class="mb-3">Ventilet et traiter l'air</h4>
+                            <li>
+                              <a href="product.html">VMC, aérateur et déshumidificateur</a>
+                            </li>
+                            <h4 class="mb-3">Plomberie</h4>
+                            <li>
+                              <a href="product.html">Traitement de l'eau et adoucisseur</a>
+                            </li>
+                            >
+                          </ul>
+                        </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                <span style="font-size:30px;cursor:pointer" (click)="onClick()"> <a class="nav-link" ><i class="fa fa-bars"></i>Produits</a> </span>
+                
+               </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="index.html"><i class="fa fa-fw fa-home"></i>Categories</a>
+              </li>
+                   
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html"><i class="fa fa-fw fa-envelope"></i>Contactez Nous</a>
+              </li>
+            </ul>
+          </div>
+          </div>
+        </nav>
+      </div>
+      </div>
+    </div>
+ 
+    <!-- //navigation -->
+    
+    <!-- banner -->
+   
+
+  
+
+    
+  <router-outlet>
+
+  </router-outlet>
+</div>
+
+
+
+
+
+
+
+
+<footer>
+  <div class="footer-top-first">
+    <div class="container py-md-5 py-sm-4 py-3">
+      <!-- footer first section -->
+     
+      <div class="row w3l-grids-footer border-top border-bottom py-sm-4 py-3">
+        <div class="col-md-4 offer-footer">
+          <div class="row">
+            <div class="col-4 icon-fot">
+              <i class="fas fa-dolly-flatbed"></i>
+            </div>
+            <div class="col-8 text-form-footer">
+              <h3>Livraison a domicile</h3>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 offer-footer my-md-0 my-4">
+          <div class="row">
+            <div class="col-4 icon-fot">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+            <div class="col-8 text-form-footer">
+              <h3>livraison rapide</h3>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 offer-footer">
+          <div class="row">
+            <div class="col-4 icon-fot">
+              <i class="far fa-thumbs-up"></i>
+            </div>
+            <div class="col-8 text-form-footer">
+              <h3>Large choix</h3>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- //footer second section -->
+    </div>
+  </div>
+  <!-- footer third section -->
+  <div class="w3l-middlefooter-sec">
+    <div class="container py-md-5 py-sm-4 py-3">
+      <div class="row footer-info w3-agileits-info">
+        
+        <!-- quick links -->
+      
+        <div class="col-md-3 col-sm-6 footer-grids mt-md-0 mt-4">
+          <h3 class="text-white font-weight-bold mb-3">Contactez nous</h3>
+          <ul>
+            <li class="mb-3">
+              <i class="fas fa-map-marker"></i> adresse</li>
+            <li class="mb-3">
+              <i class="fas fa-mobile"></i> num1 </li>
+            <li class="mb-3">
+              <i class="fas fa-envelope-open"></i>
+              <a href="mailto:example@mail.com"> mail </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 footer-grids  mt-md-0 mt-4">
+        
+          <h3 class="text-white font-weight-bold mb-3">Suivez nous sur </h3>
+            <div class="social">
+              <ul>
+                <li class="mb-3">
+                  <a class="icon fb" href="#">
+                    <i class="fab fa-facebook-f"> </i>Facebook
+                  </a>
+                </li>
+                <li>
+                  <a class="icon tw" href="#">
+                    <i class="fab fa-twitter"></i>Twitter
+                  </a>
+                </li>
+                <li>
+                  <a class="icon gp" href="#">
+                    <i class="fab fa-instagram"></i>instagram
+                  </a>
+                </li>
+              </ul>
+            </div>
+          
+          <!-- //social icons -->
+        </div>
+      </div>
+      <!-- //quick links -->
+    </div>
+  </div>
+  <!-- //footer third section -->
+
+ 
+      <!-- payment -->
+      <div class="sub-some child-momu mt-4">
+        <h5 class="font-weight-bold mb-3">Méthodes de Payment</h5>
+        <ul>
+          <li>
+            <img src="assets/images/pay2.png" alt=""> 
+          </li>
+          <li>
+            <img src="assets/images/pay5.png" alt="">
+          </li>
+          <li>
+            <img src="assets/images/pay1.png" alt="">
+          </li>
+          <li>
+            <img src="assets/images/pay4.png" alt="">
+          </li>
+          <li>
+            <img src="assets/images/pay6.png" alt="">
+          </li>
+          <li>
+            <img src="assets/images/pay3.png" alt="">
+          </li>
+        </ul>
+      </div>
+      <!-- //payment -->
+      <div class="copy-right py-3">
+        <div class="container">
+          <p class="text-center text-white">© 2020 Bon Coin. Tout les droits sont reservés 
+          </p>
+        </div>
+      </div>
+      
+</footer>
+</div>
+
+  

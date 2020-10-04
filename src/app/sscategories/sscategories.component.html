@@ -1,0 +1,60 @@
+<!--<div class="row">
+<div  *ngIf="categories">
+   <div [ngClass]="currentCategorie==c?'active':''"  (click)="getProductsByCat(c)" class="col-md-3  clickable" *ngFor="let c of categories._embedded.categories">
+    <div class="men-pro-item simpleCart_shelfItem">
+      <div class="men-thumb-item text-center">
+        <img src="assets/images/cuisine.jpg" width="250" height="250" alt="">
+      </div>
+      <div class="item-info-product text-center border-top mt-4">
+        <h4 class="pt-1">
+          <a >{{c.name}}</a>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+-->
+<style>
+h5 {
+  font-size: 3rem;
+  font-style: italic;
+  padding-left: 60px;
+  margin: .1rem 0;
+  color: #265bce;
+  text-align: center;
+}
+</style>
+<br><br> <br> 
+<div > 
+  <div class="a"><h5>{{title}}</h5></div>
+  <br><br>
+  
+<br> <br> <br> <br>
+</div>
+<div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4" >            
+    <div class="row" *ngIf="sSCategories">
+      <div class="col-md-3 clickable" (click)="getProductsByCat(c)" *ngFor="let c of sSCategories._embedded.sSCategories">
+        <div class="men-thumb-item text-center">
+          <img [src]="this.catService.host+'/photoSSCategory/'+c.id+'?ts='+getTS()" width="200" height="200" alt="">
+          <div class="men-cart-pro">
+            <div class="inner-men-cart-pro">
+              <a  class="link-product-add-cart">Quick View</a>
+            </div>
+          </div>
+        </div>
+        <div class="item-info-product text-center border-top mt-4">
+          <h4 class="pt-1">
+            <a  class="clickable">{{c.name}}</a>
+          </h4>
+        </div>
+      </div>
+    
+    </div>
+    </div>
+    
+    
+    
+    
+    
+    

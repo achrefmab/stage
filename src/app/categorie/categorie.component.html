@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      font-family: "Lato", sans-serif;
+    }
+    
+    /* Fixed sidenav, full height */
+    .sidenav {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      padding-top: 20px;
+    }
+    
+    /* Style the sidenav links and the dropdown button */
+    .sidenav a, .dropdown-btn {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      outline: none;
+    }
+    
+    /* On mouse-over */
+    .sidenav a:hover, .dropdown-btn:hover {
+      color: #f1f1f1;
+    }
+    
+    /* Main content */
+    .main {
+      margin-left: 200px; /* Same as the width of the sidenav */
+      font-size: 20px; /* Increased text to enable scrolling */
+      padding: 0px 10px;
+    }
+    
+    /* Add an active class to the active dropdown button */
+    .active {
+      background-color: green;
+      color: white;
+    }
+    
+    /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+    .dropdown-container {
+      display: none;
+      background-color: #262626;
+      padding-left: 8px;
+    }
+    
+    /* Optional: Style the caret down icon */
+    .fa-caret-down {
+      float: right;
+      padding-right: 8px;
+    }
+    
+    /* Some media queries for responsiveness */
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+    </style>
+    <link href="categorie.component.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- Bootstrap css 
+	<link href="categorie.component.css" rel="stylesheet" type="text/css" media="all" />
+	
+	<link rel="stylesheet" href="categorie.component.css">
+
+	<link href="categorie.component.css" rel="stylesheet" type="text/css" media="all" />
+	
+	<link href="categorie.component.css" rel="stylesheet" type="text/css" media="all" />
+   -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- web fonts -->
+	<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+      rel="stylesheet">
+      
+
+      <script>
+        addEventListener("load", function () {
+          setTimeout(hideURLbar, 0);
+        }, false);
+    
+        function hideURLbar() {
+          window.scrollTo(0, 1);
+        }
+      </script>
+</head>
+
+<body>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <!-- Indicators-->
+    
+    <div class="carousel-inner">
+      <div class="carousel-item item1 active">
+        <div class="container">
+          <div class="w3l-space-banner">
+            <div class="carousel-caption p-lg-5 p-sm-4 p-3">
+              
+              <a class="button2" href="product.html">Shop Now </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+
+
+
+
+    <div class="ads-grid py-sm-5 py-4">
+      <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading    style="margin-left:15%" -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+          <span>N</span>os
+          <span>C</span>ategories
+          </h3>
+          <div class="row">
+         <div class="agileinfo-ads-display ">
+            <div class="wrapper"> 
+              
+              <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4" >
+                
+                <div class="row" *ngIf="categories">
+                  <div class="col-md-4 product-men mt-5" [ngClass]="currentCategorie==c?'active':''" (click)="getScatByCat(c)" *ngFor="let c of categories._embedded.categories">
+                    <div class="men-pro-item simpleCart_shelfItem">
+                      <div class="men-thumb-item text-center">
+                        <img [src]="this.catService.host+'/photoCategory/'+c.id+'?ts='+getTS()" width="250" height="250" alt="">
+                        <div class="men-cart-pro">
+                          <div class="inner-men-cart-pro">
+                            <a  class="link-product-add-cart">Quick View</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item-info-product text-center border-top mt-4">
+                        <h4 class="pt-1">
+                          <a id="1">{{c.name}}</a>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- //first section -->
+              <!-- second section-->
+             
+              <!-- //second section -->
+              <!--
+              <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4" >
+                <div class="row" >
+                  
+                  <div class="col-md-8 bg-right-nut ">
+                    <img src="assets/images/soldes-été.png" class="left" alt="">
+                  </div>
+                </div>
+              </div>
+              -->
+              <!-- third section-->
+             
+              
+              <!-- //third section -->
+            
+              
+              <!-- fourth section 
+              <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4" >
+                
+                <div class="row">
+                  <div class="col-md-4 product-men mt-5">
+                    <div class="men-pro-item simpleCart_shelfItem">
+                      <div class="men-thumb-item text-center">
+                        <img src="assets/images/chauffage.webp" width="250" height="250" alt="">
+                        <div class="men-cart-pro">
+                          <div class="inner-men-cart-pro">
+                            <a href="single.html" class="link-product-add-cart">Quick View</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item-info-product text-center border-top mt-4">
+                        <h4 class="pt-1">
+                          <a href="single.html">Chauffage & Plomberie</a>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 product-men mt-5">
+                    <div class="men-pro-item simpleCart_shelfItem">
+                      <div class="men-thumb-item text-center">
+                        <img src="assets/images/materiaux de construction.jfif" width="250" height="250" alt="">
+                        <div class="men-cart-pro">
+                          <div class="inner-men-cart-pro">
+                            <a href="single.html" class="link-product-add-cart">Quick View</a>
+                          </div>
+                        </div>
+                        
+  
+                      </div>
+                      <div class="item-info-product text-center border-top mt-4">
+                        <h4 class="pt-1">
+                          <a href="single.html">Matériaux & Isolation</a>
+                        </h4>
+                        
+                     
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 product-men mt-5">
+                    <div class="men-pro-item simpleCart_shelfItem">
+                      <div class="men-thumb-item text-center">
+                        <img src="assets/images/Menuiserie.jfif" width="250" height="250" alt="">
+                        <div class="men-cart-pro">
+                          <div class="inner-men-cart-pro">
+                            <a href="single.html" class="link-product-add-cart">Quick View</a>
+                          </div>
+                        </div>
+                       
+  
+                      </div>
+                      <div class="item-info-product text-center border-top mt-4">
+                        <h4 class="pt-1">
+                          <a href="single.html">Menuiserie & Bois</a>
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+               //fourth section -->
+            </div>
+          </div>
+              <!--here fhfhgfdsdf-->
+
+             
+
+              <!--here   dfhgfdss  -->
+          
+          
+        </div>
+       </div>
+       </div>
+  
+    
+          
+      
+  
+    
+ 
+  
+    <!-- footer -->
+   
+    <!-- //footer -->
+    <!-- copyright -->
+   
+  <!--<app-root></app-root>-->
+
+  <script src="assets/js/jquery-2.2.3.min.js"></script>
+	<!-- //jquery -->
+
+	<!-- nav smooth scroll -->
+	<script>
+		$(document).ready(function () {
+			$(".dropdown").hover(
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+					$(this).toggleClass('open');
+				},
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+					$(this).toggleClass('open');
+				}
+			);
+		});
+	</script>
+	<!-- //nav smooth scroll -->
+
+	<!-- popup modal (for location)-->
+	<script src="assets/js/jquery.magnific-popup.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('.popup-with-zoom-anim').magnificPopup({
+				type: 'inline',
+				fixedContentPos: false,
+				fixedBgPos: true,
+				overflowY: 'auto',
+				closeBtnInside: true,
+				preloader: false,
+				midClick: true,
+				removalDelay: 300,
+				mainClass: 'my-mfp-zoom-in'
+			});
+
+		});
+	</script>
+	<!-- //popup modal (for location)-->
+
+	<!-- cart-js -->
+	<script src="assets/js/minicart.js"></script>
+	<script>
+		paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
+
+		paypals.minicarts.cart.on('checkout', function (evt) {
+			var items = this.items(),
+				len = items.length,
+				total = 0,
+				i;
+
+			// Count the number of each item in the cart
+			for (i = 0; i < len; i++) {
+				total += items[i].get('quantity');
+			}
+
+			if (total < 3) {
+				alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+				evt.preventDefault();
+			}
+		});
+	</script>
+	<!-- //cart-js -->
+
+	<!-- password-script -->
+	<script>
+		window.onload = function () {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
+	<!-- //password-script -->
+	
+	<!-- scroll seller -->
+	<script src="assets/js/scroll.js"></script>
+	<!-- //scroll seller -->
+
+	<!-- smoothscroll -->
+	<script src="assets/js/SmoothScroll.min.js"></script>
+	<!-- //smoothscroll -->
+
+	<!-- start-smooth-scrolling -->
+	<script src="assets/js/move-top.js"></script>
+	<script src="assets/js/easing.js"></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- //end-smooth-scrolling -->
+
+	<!-- smooth-scrolling-of-move-up -->
+	<script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<!-- //smooth-scrolling-of-move-up -->
+
+	<!-- for bootstrap working -->
+	<script src="assets/js/bootstrap.js"></script>
+</body>
+</html>
