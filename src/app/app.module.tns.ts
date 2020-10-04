@@ -37,8 +37,7 @@ import {UserService} from './services/UserService';
     NativeScriptModule,
     NativeScriptHttpClientModule,
     NativeScriptFormsModule,
-
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [UserService],
   bootstrap: [AppComponent],

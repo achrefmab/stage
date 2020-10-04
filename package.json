@@ -41,6 +41,7 @@
     "owl-carousel": "^1.0.0",
     "reflect-metadata": "~0.1.12",
     "rxjs": "~6.5.5",
+    "tns-core-modules": "^6.5.20",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

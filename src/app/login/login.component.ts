@@ -1,11 +1,11 @@
 import { Component, OnInit,Input, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthenticationService} from '../services/authentication.service';
 import {CaddyService} from '../services/caddy.service';
 import { Config, Menu } from '../types';
 import {Client} from '../model/client.model';
 import {UserService} from '../services/UserService';
 import { Page } from "tns-core-modules/ui/page";
+import { alert, prompt } from "tns-core-modules/ui/dialogs";
 
 
 
@@ -114,10 +114,4 @@ alert(message: string) {
         message: message
     });
 }
-
-
-
-
-
-
 }

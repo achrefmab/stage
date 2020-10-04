@@ -1,7 +1,6 @@
 <FlexboxLayout class="page">
 	<StackLayout class="form">
-		<Image class="logo" src="~/images/logo.png"></Image>
-		<Label class="header" text="APP NAME"></Label>
+		<Label class="header" text="E-commerce"></Label>
 
 		<StackLayout class="input-field">
 			<TextField class="input" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none" [(ngModel)]="client.email" returnKeyType="next" (returnPress)="focusPassword()"></TextField>
@@ -18,7 +17,7 @@
 			<StackLayout class="hr-light"></StackLayout>
 		</StackLayout>
 
-		<Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
+		<Button [text]="isLoggingIn ? 'Login' : 'Sign Up'" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
 		<Label *ngIf="isLoggingIn" text="Forgot your password?" class="login-label" (tap)="forgotPassword()"></Label>
 	</StackLayout>
 
