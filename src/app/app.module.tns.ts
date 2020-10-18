@@ -13,7 +13,7 @@ import { ProductComponent } from '../app/product/product.component';
 import { ProductsComponent } from '../app/products/products.component';
 import { SouscategoriesComponent } from '../app/souscategories/souscategories.component';
 import { SscategoriesComponent } from '../app/sscategories/sscategories.component';
-import {UserService} from './services/UserService';
+import {UserService} from './services/UserService.service';
 
 
 
@@ -37,8 +37,7 @@ import {UserService} from './services/UserService';
     NativeScriptModule,
     NativeScriptHttpClientModule,
     NativeScriptFormsModule,
-
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [UserService],
   bootstrap: [AppComponent],

@@ -33,11 +33,11 @@ import { DialogComponent } from '@src/app/dialog/dialog.component';
     CaddyComponent,
     DialogComponent
   ],
- 
+
   imports: [
     BrowserModule,
-    AppRoutingModule, HttpClientModule,FormsModule, BrowserAnimationsModule,
-   
+    AppRoutingModule, HttpClientModule,FormsModule, BrowserAnimationsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

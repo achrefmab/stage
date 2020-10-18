@@ -1,54 +1,165 @@
-        <br> <br >
-        <div class="row"  *ngIf="products">
-        
-            <div class="col-md-3" *ngFor="let p of products._embedded.products">
-          
-            <div class="panel panel-default heigted">
-                <div class="panel-heading">{{p.name}}</div>
-                <div class="panel-body">
-                <img class="img-thumbnail img-rounded btn" (click)="onProductDetails(p)" width="200" height="200" [src]="this.catService.host+'/photoProduct/'+p.id+'?ts='+getTS()"/>
-                <div *ngIf="this.authService.isAdmin()">
-                    
-                    <button (click)="onEditPhoto(p)">
-                    <span class="glyphicon glyphicon-edit"></span>
-                    </button>
-                    <p *ngIf="editPhoto && currentProduct==p">
-                    <input type="file" (change)="onSelectedFile($event)">
-                    <button class="btn btn-success" (click)="uploadPhoto()">Upload</button>
-                    {{progress}}
-                    </p>
-                </div>
-                
-                <div>
-                    <label>Price : {{p.currentPrice|number:'0.00'}}</label>
-                </div>
-                <div>
-                <span *ngIf="p.promotion">
-                        <img src="assets/images/promo.png" class="img-thumbnail img-circle" height="30">
-                        </span>
-                    <span *ngIf="p.selected">
-                        <img src="assets/images/favorite.png" class="img-thumbnail img-circle" height="30">
-                        </span>
-                    <span *ngIf="p.available">
-                        <img src="assets/images/available.png" class="img-thumbnail img-circle"  height="30">
-                        </span>
-                </div>
-                <div>
-                    <form #f="ngForm" (ngSubmit)="onAddProductToCaddy(p)">
-                    <label class="control-label">Quantité :</label>
-                    <input type="number" name="quantity" [(ngModel)]="p.quantity" ngModel style="width: 40px">
-                    <button>
-                        <img src="assets/images/caddy.png">
-                    </button>
-                    </form>
-                </div>
-                </div>
-        
-        
-        
-            </div>
-            
-            </div>
-        </div>
-       
-        
+<style>
+  .clickable {
+     cursor: pointer;
+}
+
+  div.a {
+    text-align: center;
+  }
+  h5 {
+    font-size: 3rem;
+    font-style: italic;
+    padding-left: 60px;
+    margin: .1rem 0;
+    color: #265bce;
+}
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 5;
+  width:25%;
+  border-style: inset;
+  border-width: 1px;
+  color:blue
+}
+  </style>
+     <br>
+     <div class="a agileinfo-ads-display col-lg-9"><h5>{{title}}</h5></div>
+     <br>
+     <div class="row">
+     <div class="agileinfo-ads-display col-lg-9">
+      <div class="wrapper">
+          <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
+      <div class="row"  *ngIf="products">
+
+              <div class="col-md-3 " *ngFor="let p of products._embedded.products">
+                  <div class="men-thumb-item text-center">
+                      <img [src]="this.catService.host+'/photoProduct/'+p.id+'?ts='+getTS()"  width="200" height="200" alt="">
+                      <div class="men-cart-pro">
+                          <div class="inner-men-cart-pro">
+                              <a (click)="onProductDetails(p)" class="link-product-add-cart">Quick View</a>
+                          </div>
+                          <div *ngIf="this.authService.isAdmin()">
+
+                              <button (click)="onEditPhoto(p)">
+                              <span class="glyphicon glyphicon-edit"></span>
+                              </button>
+                              <p *ngIf="editPhoto && currentProduct==p">
+                              <input type="file" (change)="onSelectedFile($event)">
+                              <button class="btn btn-success" (click)="uploadPhoto()">Upload</button>
+                              {{progress}}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="item-info-product text-center border-top mt-4">
+                      <h4 class="pt-1">
+                          <a (click)="onProductDetails(p)">{{p.name}}</a>
+                      </h4>
+                      <div class="info-product-price my-2">
+                          <span class="item_price" *ngIf="!p.promotion">{{p.currentPrice|number:'0.00'}} £</span>
+                          <div class="info-product-price my-2" *ngIf="p.promotion">
+                              <span class="item_price">{{p.prixPromo|number:'0.00'}} £</span>
+                              <del>{{p.currentPrice|number:'0.00'}} £</del>
+                          </div>
+                          <div>
+                              <span *ngIf="p.promotion">
+                                      <img src="assets/images/promo.png" class="img-thumbnail img-circle" height="30">
+                                      </span>
+                                  <span *ngIf="p.selected">
+                                      <img src="assets/images/favorite.png" class="img-thumbnail img-circle" height="30">
+                                      </span>
+                                  <span *ngIf="p.available">
+                                      <img src="assets/images/available.png" class="img-thumbnail img-circle"  height="30">
+                                      </span>
+                              </div>
+                              <div *ngIf="!this.authService.isAdmin()" class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                  <form #f="ngForm" (ngSubmit)="onAddProductToCaddy(p)">
+
+                                      <label class="control-label">Quantité </label>
+                                  <input type="number" name="quantity" [(ngModel)]="p.quantity" ngModel style="width: 40px">
+
+                                      <input type="submit" name="submit" value="Ajouter au panier" class="button btn" />
+
+                                  </form>
+                              </div>
+
+                      </div>
+
+
+                  </div>
+              </div>
+
+
+
+      </div>
+       </div>
+     </div>
+  </div>
+  <div class="col-lg-3 mt-lg-0 mt-4 p-lg-0" >
+      <div class="side-bar p-sm-4 p-3">
+          <div class="search-hotel border-bottom py-2">
+              <h3 class="agileits-sear-head mb-3">Produits</h3>
+              <div class="left-side py-2">
+                  <ul>
+                      <li>
+
+                          <a  class="clickable"(click)="tout()" >Tout les produits</a>
+                      </li>
+                      <li>
+
+                          <span class="clickable" (click)="dispo()">Produits Disponible</span>
+                      </li>
+                      <li>
+
+                          <span (click)="promo()" class="span clickable">Produits en promotion</span>
+                      </li>
+
+                  </ul>
+              </div>
+          </div>
+          <!-- ram -->
+          <div class="left-side border-bottom py-2">
+              <h3 class="agileits-sear-head mb-3">Catégories</h3>
+              <ul>
+                  <li>
+
+                      <span class="span clickable" routerLink="/souscatego/1/Jardin Terrasse/Un carré potager, une terrasse pour les soirées d’été avec salon et barbecue, une piscine, un terrain de jeu pour les enfants équipé d’un portique…">Jardin et Terrasse</span>
+                  </li>
+                  <li>
+
+                      <span class="span clickable">Cuisine et Electroménager</span>
+                  </li>
+                  <li>
+
+                      <span class="span clickable">Salle de bains</span>
+                  </li>
+                  <li>
+
+                      <span class="span clickable">Rangement Dressing</span>
+                  </li>
+                  <li>
+                      <span class="span clickable">Sol Carrelage</span>
+                  </li>
+                  <li>
+                      <span class="span clickable">Peinture Droguerie</span>
+                  </li>
+                  <li>
+
+                      <span class="span clickable">Décoration Luminaire</span>
+                  </li>
+                  <li>
+                      <span class="span clickable">Outillage Atelier</span>
+                  </li>
+              </ul>
+          </div>
+          <!-- //ram -->
+          <!-- price -->
+
+
+      </div>
+      <!-- //product right -->
+  </div>
+</div>
+

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Order} from '../model/Order.model';
+import { CatalogueService } from './catalogue.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,13 @@ export class AuthenticationService {
   private users=[
     {username:"admin", password:"1234",roles:['USER','ADMIN']},
     {username:"user1", password:"1234",roles:['USER']},
+    {username:"hadhemi", password:"1234",roles:['USER']},
     {username:"user2", password:"1234",roles:['USER']}
   ]
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient,
+    private httpClient:HttpClient,
+              private catalService:CatalogueService) {
   }
 
   login(username:string,password:string){
@@ -59,5 +63,10 @@ export class AuthenticationService {
     this.authenticatedUser=undefined;
     localStorage.removeItem('authenticatedUser');
   }
-
+  saveCompte(compte) {
+    return this.httpClient.post(this.catalService.host+"/compte",compte);
+  }
+   auth(compte){
+    return this.httpClient.post(this.catalService.host+"/auth",compte);
+  }
 }

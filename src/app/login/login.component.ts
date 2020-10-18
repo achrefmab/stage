@@ -1,11 +1,14 @@
 import { Component, OnInit,Input, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthenticationService} from '../services/authentication.service';
 import {CaddyService} from '../services/caddy.service';
 import { Config, Menu } from '../types';
 import {Client} from '../model/client.model';
-import {UserService} from '../services/UserService';
+import {UserService} from '../services/UserService.service';
 import { Page } from "tns-core-modules/ui/page";
+import { alert, prompt } from "tns-core-modules/ui/dialogs";
+import { AuthenticationService } from '../services/authentication.service';
+import { Compte } from '../model/compte.model';
+
 
 
 
@@ -19,12 +22,15 @@ export class LoginComponent implements OnInit {
   @Input() options;
   @Input() menus: Menu[];
   config: Config;
+  compte=new Compte();
   isLoggingIn = true;
   client : Client;
   @ViewChild("password") password: ElementRef;
   @ViewChild("confirmPassword") confirmPassword: ElementRef;
 
-  constructor(private page: Page,
+  constructor(
+    private authService:AuthenticationService,
+    private page: Page,
     private userService:UserService,
               private router:Router,
               private caddyService:CaddyService
@@ -36,6 +42,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   toggleForm() {
     this.isLoggingIn = !this.isLoggingIn;
   }
@@ -47,36 +54,13 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.isLoggingIn) {
-        this.login();
+        this.login("");
     } else {
         this.register();
     }
 }
 
-login() {
-    this.userService.login(this.client)
-        .then(() => {
-            this.router.navigate(["/home"]);
-        })
-        .catch(() => {
-            this.alert("Unfortunately we could not find your account.");
-        });
-}
 
-register() {
-    if (this.client.password != this.client.confirmPassword) {
-        this.alert("Your passwords do not match.");
-        return;
-    }
-    this.userService.register(this.client)
-        .then(() => {
-            this.alert("Your account was successfully created.");
-            this.isLoggingIn = true;
-        })
-        .catch(() => {
-            this.alert("Unfortunately we were unable to create your account.");
-        });
-}
 
 forgotPassword() {
   prompt({
@@ -114,10 +98,44 @@ alert(message: string) {
         message: message
     });
 }
+login(user){
+  this.authService.login(user.username,user.password);
+  if(this.authService.isAuthenticated()){
+    this.caddyService.loadCaddyFromLocalStorage();
+    this.router.navigateByUrl('');
+  }
+
+}
 
 
+onLogin(user){
+  this.authService.login(user.username,user.password);
+  if(this.authService.isAuthenticated()){
+    this.caddyService.loadCaddyFromLocalStorage();
+    this.router.navigateByUrl('');
+  }
 
+}
 
+register()
+{
+  this.authService.auth(this.compte).subscribe(data=>{
+    localStorage.setItem("authenticatedUser",JSON.stringify(this.compte));
+    this.authService.authenticated=true;
+    //this.authService.compte=this.compte;
+    this.authService.authenticatedUser=this.compte;
 
+    this.caddyService.loadCaddyFromLocalStorage();
+    if(this.compte.roles=="admin"){
+    console.log("well");
+  }
+    this.router.navigateByUrl('/Login');
+
+  },err=>{
+    console.log(err);
+    this.authService.authenticated=false;
+  });
+
+}
 
 }
