@@ -9,7 +9,15 @@
     margin: .1rem 0;
     color: #265bce;
 }
-hr { 
+h1 {
+      font-size: 1.25rem;
+      font-style: italic;
+      padding-left: 50px;
+      margin: .1rem 0;
+      color: #3b3e46;
+      text-align: center;
+  }
+hr {
   display: block;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -20,19 +28,21 @@ hr {
   color:blue
 }
   </style>
-  <br><br> <br> 
-<div > 
+  <br><br> <br>
+<div >
   <div class="a"><h5>{{title}}</h5></div>
+  <br>
+  <div ><h1>{{description}}</h1></div>
   <br><br>
-  
+
 <br> <br> <br> <br>
 </div>
 
-<div  >            
+<div  >
 <div class="row" >
   <div class="col-md-3 clickable"[ngClass]="currentCategorie==c?'active':''" (click)="getScatByCat(c)" *ngFor="let c of sCategories._embedded.sCategories">
     <div class="men-thumb-item text-center">
-      
+
       <img [src]="this.catService.host+'/photoSCategory/'+c.id+'?ts='+getTS()" width="200" height="200" alt="">
       <div class="men-cart-pro">
         <div class="inner-men-cart-pro">
@@ -40,7 +50,7 @@ hr {
         </div>
       </div>
     </div>
-    
+
     <div class="item-info-product text-center border-top mt-4">
       <h4 class="pt-1">
         <a  class="clickable">{{c.name}}</a>

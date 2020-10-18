@@ -3,6 +3,11 @@ import { Order } from '../model/Order.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import {OrderService} from '../services/order.service';
 import { CaddyService } from '../services/caddy.service';
+
+declare const openCity: any;
+declare const plusSlides: any;
+declare const currentSlide: any;
+declare const showSlides: any;
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -18,7 +23,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit() {
     let id=this.route.snapshot.params.orderID
-     
+
     this.orderService.getOrder(id).subscribe(data=>{
       this.currentOrder=data;
     },err=>{
@@ -33,5 +38,17 @@ export class PaymentComponent implements OnInit {
   Payer() {
     this.router.navigateByUrl("/categorie");
     this.caddyService.emptyCaddy();
+  }
+  onClick1() {
+    openCity();
+  }
+  onClick2() {
+    plusSlides();
+  }
+  onClick3() {
+    currentSlide();
+  }
+  onClick4() {
+    showSlides();
   }
 }

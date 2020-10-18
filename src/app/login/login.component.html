@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
- 
+
     <link href="login.component.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- Bootstrap css -->
 	<link href="login.component.css" rel="stylesheet" type="text/css" media="all" />
@@ -18,23 +18,23 @@
 	<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
       rel="stylesheet">
-      
+
 
       <script>
         addEventListener("load", function () {
           setTimeout(hideURLbar, 0);
         }, false);
-    
+
         function hideURLbar() {
           window.scrollTo(0, 1);
         }
       </script>
 </head>
   <body>
-   
+
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            
+
             <div class="modal-body">
               <form  #f="ngForm" (ngSubmit)="onLogin(f.value)">
                 <div class="form-group">
@@ -46,21 +46,20 @@
                   <input type="password" ngModel class="form-control" placeholder=" " name="password" required="">
                 </div>
                 <div class="right-w3l">
-                  <input type="submit" class="form-control" value="Log in">
+                  <input type="submit" class="form-control" value="Connecter">
                 </div>
                 <div class="sub-w3l">
-          
+
                 </div>
-                <p class="text-center dont-do mt-3">Don't have an account?
+                <p class="text-center dont-do mt-3">Tu n'as pas du compte?
                   <a href="#" data-toggle="modal" data-target="#exampleModal2">
-                    Register Now</a>
+                    Inscrivez-vous</a>
                 </p>
               </form>
             </div>
           </div>
-     </div> 
+     </div>
   </body>
 </html>
 
 
-  

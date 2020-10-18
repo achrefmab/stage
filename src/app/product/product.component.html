@@ -1,96 +1,132 @@
-<br> <br> <br>
 
-<div *ngIf="currentProduct">
+	<div *ngIf="currentProduct.promotion">
+    <img src="../assets/images/b11.jpg" width="1400" height="200">
+ </div>
+<div class="banner-bootom-w3-agileits py-5" *ngIf="currentProduct">
+  <div class="container py-xl-4 py-lg-2">
+    <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+      <span>P</span>roduit
+      </h3>
     <div class="row"*ngIf="mode==0">
-        <div  class="col-lg-5 col-md-8 single-right-left ">
-         <div  class="modal-content">
-          <img class="thumb-image" [src]="this.catalService.host+'/photoProduct/'+currentProduct.id+'?ts='+getTS()"/>
-          <div  *ngIf="this.authService.isAdmin()">
-            <button *ngIf="!editPhoto" (click)="onEditPhoto(currentProduct)">
-              <span class="glyphicon glyphicon-edit"></span>
-            </button>
-            <button class="btn btn-success btn-sm" (click)="onEditProduct()">
-              <span class="glyphicon glyphicon-upload"></span>
-            </button>
-            <span *ngIf="editPhoto">
-              <input type="file" (change)="onSelectedFile($event)">
-              <button class="btn btn-success btn-sm" (click)="uploadPhoto()">
-                <span class="glyphicon glyphicon-upload"></span>
-              </button>
-              {{progress}}
-            </span>
+      <div  class="col-lg-5 col-md-8 single-right-left ">
+          <div  class="thumb-image">
+              <img data-imagezoom="true" class="img-fluid" [src]="this.catalService.host+'/photoProduct/'+currentProduct.id+'?ts='+getTS()"/>
           </div>
-         </div>
-  
-          <div>
-          <span *ngIf="currentProduct.promotion">
-                  <img src="assets/images/promo.png" class="img-thumbnail img-circle" height="30">
-                </span>
-            <span *ngIf="currentProduct.selected">
-                  <img src="assets/images/favorite.png" class="img-thumbnail img-circle" height="30">
-                </span>
-            <span *ngIf="currentProduct.available">
-                  <img src="assets/images/available.png" class="img-thumbnail img-circle"  height="30">
-                </span>
-          </div>
-          <div>
-            <form #f="ngForm" (ngSubmit)="onAddProductToCaddy(currentProduct)">
-              <label class="control-label">Quantité :</label>
-              <input type="number" name="quantity" [(ngModel)]="currentProduct.quantity" ngModel style="width: 40px">
-              <a [routerLink]="['/caddy']"><button >
-                <img src="assets/images/caddy.png">
-              </button>
-            </a>
-            </form>
-          </div>
-  
-        </div>
-      
-           
+       </div>
       <div  class="col-lg-7 single-right-left simpleCart_shelfItem">
-        <div  class="modal-content"> 
-        <h3 class="mb-3">Fiche Produit : {{currentProduct.name}}
+
+        <h3 class="mb-3"> {{currentProduct.name}}
           </h3>
-         
-          <p class="mb-3">
-              <label>Price : {{currentProduct.currentPrice|number:'0.00'}}</label>
-            
-            </p>
+
+          <div class="mb-3">
+            <span class="item_price" *ngIf="!currentProduct.promotion">{{currentProduct.currentPrice|number:'0.00'}}</span>
+            <div class="info-product-price my-2" *ngIf="currentProduct.promotion">
+              <span class="item_price">{{currentProduct.prixPromo|number:'0.00'}}</span>
+              <del>{{currentProduct.currentPrice|number:'0.00'}}</del>
+            </div>
+          </div>
             <div class="single-infoagile">
+              <ul>
+                <li class="mb-3">
+                  Bonne qulité.
+                </li>
+                <li class="mb-3">
+                 Paiement à la livraison éligible.
+                </li>
+                <li class="mb-3">
+                  Vitesse d'expédition à la livraison.
+                </li>
+              </ul>
+            </div>
+            <div class="product-single-w3l">
+              <p class="my-3">
+                <i class="far fa-hand-point-right mr-2"></i>
+                <label>1 an</label>de garantie du fabricant.</p>
               Description :{{currentProduct.description}}
             </div>
-         
-           </div>
-      </div>
+                  <br> <br>
+            <div>
+              <span *ngIf="currentProduct.promotion">
+                      <img src="assets/images/promo.png" class="img-thumbnail img-circle" height="30">
+                    </span>
+                <span *ngIf="currentProduct.selected">
+                      <img src="assets/images/favorite.png" class="img-thumbnail img-circle" height="30">
+                    </span>
+                <span *ngIf="currentProduct.available">
+                      <img src="assets/images/available.png" class="img-thumbnail img-circle"  height="30">
+                    </span>
+              </div>
+              <div>
+                <form #f="ngForm" (ngSubmit)="onAddProductToCaddy(currentProduct)">
+                  <label class="control-label">Quantité :</label>
+                  <input type="number" name="quantity" [(ngModel)]="currentProduct.quantity" ngModel style="width: 40px">
+                  <a [routerLink]="['/caddy']"><button >
+                    <img src="assets/images/caddy.png">
+                  </button>
+                </a>
+                </form>
+              </div>
+            </div>
+						<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+							<div  class="modal-content" *ngIf="this.authService.isAdmin()">
+                <button  class="btn btn-info"  *ngIf="!editPhoto" (click)="onEditPhoto(currentProduct)">
+                  <span class="glyphicon glyphicon-edit">Modifier photo</span>
+                </button>
+                <br>
+                <button class="btn btn-info"  (click)="onEditProduct()">
+                  <span class="glyphicon glyphicon-upload">Modifier produit</span>
+                </button>
+                <span *ngIf="editPhoto">
+                  <input type="file" (change)="onSelectedFile($event)">
+                  <button class="btn btn-info"  (click)="uploadPhoto()">
+                    <span class="glyphicon glyphicon-upload">Ajouter photo</span>
+                  </button>
+                  {{progress}}
+                </span>
+              </div>
+						</div>
+
+
+
     </div>
-    <div *ngIf="mode==1">
+
+    <div class="modal-dialog" role="document" *ngIf="mode==1">
+      <div class="modal-content">
+        <div class="modal-body">
+
       <form #f="ngForm" (ngSubmit)="onUpdateProduct(f.value)">
         <div class="form-group">
-          <label class="control-label">Name:</label>
+          <label class="control-label">Nom</label>
           <input type="text" name="name" ngModel [(ngModel)]="currentProduct.name" class="form-control">
         </div>
         <div class="form-group">
-          <label class="control-label">Description:</label>
+          <label class="control-label">Description</label>
           <textarea name="description" ngModel [(ngModel)]="currentProduct.description" class="form-control"></textarea>
         </div>
         <div class="form-group">
-          <label class="control-label">Price:</label>
+          <label class="control-label">Prix</label>
           <input type="text" name="currentPrice" ngModel [(ngModel)]="currentProduct.currentPrice" class="form-control">
         </div>
         <div class="form-group">
-          <label class="control-label">Promotion:</label>
+          <label class="control-label">Prix promo</label>
+          <input type="text" name="prixPromo" ngModel [(ngModel)]="currentProduct.prixPromo" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Promotion</label>
           <input type="checkbox" name="promotion" ngModel [(ngModel)]="currentProduct.promotion" >
         </div>
         <div class="form-group">
-          <label class="control-label">Sélection:</label>
+          <label class="control-label">Sélection</label>
           <input type="checkbox" name="selected" ngModel [(ngModel)]="currentProduct.selected" >
         </div>
         <div class="form-group">
-          <label class="control-label">Available:</label>
+          <label class="control-label">Disponible:</label>
           <input type="checkbox" name="available" ngModel [(ngModel)]="currentProduct.available" >
         </div>
-        <button class="btn btn-success" type="submit">Update</button>
+        <button class="btn btn-info"  type="submit">Modifier</button>
       </form>
     </div>
+</div>
+</div>
   </div>
-  
+</div>

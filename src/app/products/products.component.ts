@@ -20,6 +20,7 @@ export class ProductsComponent implements OnInit {
    currentFileUpload: any;
    title:string;
    currentRequest:string;
+   valc:number;
   private currentTime: number=0;
 
   constructor(
@@ -30,6 +31,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     let idCat=this.route.snapshot.params.p2;
+    this.valc=idCat;
     this.currentRequest='/sSCategories/'+idCat+'/products';
     this.getProducts(this.currentRequest);
     this.router.events.subscribe((val) => {
@@ -37,15 +39,18 @@ export class ProductsComponent implements OnInit {
         let url = val.url;
         console.log(url);
         let p1=this.route.snapshot.params.p1;
+        let idCat=this.route.snapshot.params.p2;
+        let t=this.route.snapshot.params.p3;
         if(p1==1){
           this.title="Sélection";
           this.currentRequest='/products/search/selectedProducts';
           this.getProducts(this.currentRequest);
         }
         else if (p1==2){
-          let idCat=this.route.snapshot.params.p2;
-          this.title="Produits de la catégorie "+idCat;
-          this.currentRequest='/categories/'+idCat+'/products';
+
+          this.title=t;
+          val=idCat;
+          this.currentRequest='/sSCategories/'+idCat+'/products';
           this.getProducts(this.currentRequest);
         }
         else if (p1==3){
@@ -59,9 +64,17 @@ export class ProductsComponent implements OnInit {
           this.getProducts(this.currentRequest);
         }
         else if (p1==5){
+          let name=this.route.snapshot.params.p3;
           this.title="Recherche..";
           this.title="Produits Disponibles";
-          this.currentRequest='/products/search/dispoProducts';
+          this.currentRequest='/products/search/productsByKeyword?mc='+name;
+          this.getProducts(this.currentRequest);
+        }
+
+        else if (p1==6){
+
+          this.title="Tout les produits";
+          this.currentRequest='/products';
           this.getProducts(this.currentRequest);
         }
 
@@ -72,6 +85,7 @@ export class ProductsComponent implements OnInit {
       this.currentRequest='/products/search/selectedProducts';
       this.getProducts(this.currentRequest);
     }
+
   }
 
   private getProducts(url) {
@@ -124,7 +138,7 @@ export class ProductsComponent implements OnInit {
 
   onAddProductToCaddy(p:Product) {
     if(!this.authService.isAuthenticated()){
-      this.router.navigateByUrl("/login");
+      this.router.navigateByUrl("/Login");
     }
     else{
       this.caddyService.addProduct(p);
@@ -138,5 +152,13 @@ export class ProductsComponent implements OnInit {
   onProductDetails(p) {
     this.router.navigateByUrl("/product/"+p.id);
   }
-
+  promo() {
+    this.router.navigateByUrl("/products/3/"+ this.valc+"/0");
+  }
+  dispo() {
+    this.router.navigateByUrl("/products/4/"+ this.valc+"/0");
+  }
+  tout() {
+    this.router.navigateByUrl("/products/6/0/0");
+  }
 }
